@@ -18,6 +18,7 @@ use BookStack\Exceptions\PermissionsException;
 use BookStack\Facades\Activity;
 use BookStack\References\ReferenceStore;
 use BookStack\References\ReferenceUpdater;
+use BookStack\Uploads\ImageRepo;
 use Exception;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -27,6 +28,7 @@ class PageRepo
     protected RevisionRepo $revisionRepo;
     protected ReferenceStore $referenceStore;
     protected ReferenceUpdater $referenceUpdater;
+    protected ImageRepo $imageRepo;
 
     /**
      * PageRepo constructor.
@@ -41,6 +43,7 @@ class PageRepo
         $this->revisionRepo = $revisionRepo;
         $this->referenceStore = $referenceStore;
         $this->referenceUpdater = $referenceUpdater;
+        $this->imageRepo = $imageRepo;
     }
 
     /**
@@ -58,6 +61,29 @@ class PageRepo
         }
 
         return $page;
+    }
+
+    /**
+     * Get an pages with the given image path.
+     * @return Page[]
+     */
+    public function getByImagePath($path): array
+    {
+        $pages = [];
+        $images = $this->imageRepo->getByPath($path);
+        foreach ($images as $image) {
+            try
+            {
+                $page = $this->getById($image["uploaded_to"]);
+                if (!in_array($page, $pages)) {
+                    array_push($pages, $page);
+                }
+            }
+            catch (NotFoundException $e) {
+                continue;
+            }
+        }
+        return $pages;
     }
 
     /**

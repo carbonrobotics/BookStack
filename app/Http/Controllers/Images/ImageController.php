@@ -8,6 +8,7 @@ use BookStack\Http\Controllers\Controller;
 use BookStack\Uploads\Image;
 use BookStack\Uploads\ImageRepo;
 use BookStack\Uploads\ImageService;
+use BookStack\Entities\Repos\PageRepo;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -16,11 +17,16 @@ class ImageController extends Controller
 {
     protected ImageRepo $imageRepo;
     protected ImageService $imageService;
+    protected PageRepo $pageRepo;
 
-    public function __construct(ImageRepo $imageRepo, ImageService $imageService)
+    /**
+     * ImageController constructor.
+     */
+    public function __construct(ImageRepo $imageRepo, ImageService $imageService, PageRepo $pageRepo)
     {
         $this->imageRepo = $imageRepo;
         $this->imageService = $imageService;
+        $this->pageRepo = $pageRepo;
     }
 
     /**
@@ -31,6 +37,13 @@ class ImageController extends Controller
     public function showImage(string $path)
     {
         if (!$this->imageService->pathAccessibleInLocalSecure($path)) {
+            throw (new NotFoundException(trans('errors.image_not_found')))
+                ->setSubtitle(trans('errors.image_not_found_subtitle'))
+                ->setDetails(trans('errors.image_not_found_details'));
+        }
+
+        $relatedPages = $this->pageRepo->getByImagePath($path);
+        if (count($relatedPages) == 0) {
             throw (new NotFoundException(trans('errors.image_not_found')))
                 ->setSubtitle(trans('errors.image_not_found_subtitle'))
                 ->setDetails(trans('errors.image_not_found_details'));

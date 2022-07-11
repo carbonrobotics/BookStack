@@ -24,6 +24,17 @@ class ImageRepo
     }
 
     /**
+     * Get an images with the given path.
+     * @return Image[]
+     */
+    public function getByPath($path): array
+    {
+        $pathWithoutSize = preg_replace('/(scaled|thumbs)-.*\//', '', $path);
+        $images = Image::query()->where('path', 'like', sprintf("/uploads/images\/%s", $pathWithoutSize))->get();
+        return $images->toArray();
+    }
+
+    /**
      * Get an image with the given id.
      */
     public function getById($id): Image
