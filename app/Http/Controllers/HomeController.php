@@ -44,7 +44,10 @@ class HomeController extends Controller
             ->get();
 
         $homepageOptions = ['default', 'books', 'bookshelves', 'page'];
-        $homepageOption = setting('app-homepage-type', 'default');
+        $homepageOption = auth()->check() ?
+            setting('app-homepage-type-user', 'default') :
+            setting('app-homepage-type-public', 'default');
+
         if (!in_array($homepageOption, $homepageOptions)) {
             $homepageOption = 'default';
         }
@@ -94,7 +97,7 @@ class HomeController extends Controller
         }
 
         if ($homepageOption === 'page') {
-            $homepageSetting = setting('app-homepage', '0:');
+            $homepageSetting = setting(auth()->check() ? 'app-homepage-user' : 'app-homepage-public', '0:');
             $id = intval(explode(':', $homepageSetting)[0]);
             /** @var Page $customHomepage */
             $customHomepage = Page::query()->where('draft', '=', false)->findOrFail($id);

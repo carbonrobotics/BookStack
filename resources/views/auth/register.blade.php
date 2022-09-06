@@ -8,34 +8,36 @@
         <div class="card content-wrap auto-height">
             <h1 class="list-heading">{{ Str::title(trans('auth.sign_up')) }}</h1>
 
-            <form action="{{ url("/register") }}" method="POST" class="mt-l stretch-inputs">
-                {!! csrf_field() !!}
+            @if(!setting('registration-disable-password'))
+                <form action="{{ url("/register") }}" method="POST" class="mt-l stretch-inputs">
+                    {!! csrf_field() !!}
 
-                <div class="form-group">
-                    <label for="email">{{ trans('auth.name') }}</label>
-                    @include('form.text', ['name' => 'name'])
-                </div>
-
-                <div class="form-group">
-                    <label for="email">{{ trans('auth.email') }}</label>
-                    @include('form.text', ['name' => 'email'])
-                </div>
-
-                <div class="form-group">
-                    <label for="password">{{ trans('auth.password') }}</label>
-                    @include('form.password', ['name' => 'password', 'placeholder' => trans('auth.password_hint')])
-                </div>
-
-                <div class="grid half collapse-xs gap-xl v-center mt-m">
-                    <div class="text-small">
-                        <a href="{{ url('/login') }}">{{ trans('auth.already_have_account') }}</a>
+                    <div class="form-group">
+                        <label for="email">{{ trans('auth.name') }}</label>
+                        @include('form.text', ['name' => 'name'])
                     </div>
-                    <div class="from-group text-right">
-                        <button class="button">{{ trans('auth.create_account') }}</button>
-                    </div>
-                </div>
 
-            </form>
+                    <div class="form-group">
+                        <label for="email">{{ trans('auth.email') }}</label>
+                        @include('form.text', ['name' => 'email'])
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">{{ trans('auth.password') }}</label>
+                        @include('form.password', ['name' => 'password', 'placeholder' => trans('auth.password_hint')])
+                    </div>
+
+                    <div class="grid half collapse-xs gap-xl v-center mt-m">
+                        <div class="text-small">
+                            <a href="{{ url('/login') }}">{{ trans('auth.already_have_account') }}</a>
+                        </div>
+                        <div class="from-group text-right">
+                            <button class="button">{{ trans('auth.create_account') }}</button>
+                        </div>
+                    </div>
+
+                </form>
+            @endif
 
             @if(count($socialDrivers) > 0)
                 <hr class="my-l">

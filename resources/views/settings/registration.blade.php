@@ -50,6 +50,20 @@
 
             <div class="grid half gap-xl">
                 <div>
+                    <label class="setting-list-label">{{ trans('settings.reg_disable_password') }}</label>
+                    <p class="small">{{ trans('settings.reg_disable_password_desc') }}</p>
+                </div>
+                <div>
+                    @include('form.toggle-switch', [
+                        'name' => 'setting-registration-disable-password',
+                        'value' => setting('registration-disable-password'),
+                        'label' => trans('settings.reg_disable_password_toggle')
+                    ])
+                </div>
+            </div>
+
+            <div class="grid half gap-xl">
+                <div>
                     <label class="setting-list-label">{{ trans('settings.reg_email_confirmation') }}</label>
                     <p class="small">{{ trans('settings.reg_confirm_email_desc') }}</p>
                 </div>

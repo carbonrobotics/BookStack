@@ -23,6 +23,7 @@ return [
     'app_public_access_desc' => 'Enabling this option will allow visitors, that are not logged-in, to access content in your BookStack instance.',
     'app_public_access_desc_guest' => 'Access for public visitors can be controlled through the "Guest" user.',
     'app_public_access_toggle' => 'Allow public access',
+    'app_public_metadata_toggle' => 'Hide metadata from public',
     'app_public_viewing' => 'Allow public viewing?',
     'app_secure_images' => 'Higher Security Image Uploads',
     'app_secure_images_toggle' => 'Enable higher security image uploads',
@@ -37,6 +38,8 @@ return [
     'app_primary_color' => 'Application Primary Color',
     'app_primary_color_desc' => 'Sets the primary color for the application including the banner, buttons, and links.',
     'app_homepage' => 'Application Homepage',
+    'app_homepage_user' => 'Logged-in Homepage',
+    'app_homepage_public' => 'Public Homepage',
     'app_homepage_desc' => 'Select a view to show on the homepage instead of the default view. Page permissions are ignored for selected pages.',
     'app_homepage_select' => 'Select a page',
     'app_footer_links' => 'Footer Links',
@@ -70,6 +73,9 @@ return [
     'reg_confirm_restrict_domain' => 'Domain Restriction',
     'reg_confirm_restrict_domain_desc' => 'Enter a comma separated list of email domains you would like to restrict registration to. Users will be sent an email to confirm their address before being allowed to interact with the application. <br> Note that users will be able to change their email addresses after successful registration.',
     'reg_confirm_restrict_domain_placeholder' => 'No restriction set',
+    'reg_disable_password' => 'Basic Authentication',
+    'reg_disable_password_desc' => 'When enabled, basic username and password authentication will be disabled and users will only be able to register and log in with Oauth',
+    'reg_disable_password_toggle' => 'Disable Basic Authentication',
 
     // Maintenance settings
     'maint' => 'Maintenance',

@@ -98,8 +98,8 @@ class TrashCan
      */
     protected function ensureDeletable(Entity $entity): void
     {
-        $customHomeId = intval(explode(':', setting('app-homepage', '0:'))[0]);
-        $customHomeActive = setting('app-homepage-type') === 'page';
+        $customHomeId = intval(explode(':', setting('app-homepage-user', '0:'))[0]);
+        $customHomeActive = setting('app-homepage-type-user') === 'page';
         $removeCustomHome = false;
 
         // Check custom homepage usage for pages
@@ -121,7 +121,7 @@ class TrashCan
         }
 
         if ($removeCustomHome) {
-            setting()->remove('app-homepage');
+            setting()->remove('app-homepage-user');
         }
     }
 

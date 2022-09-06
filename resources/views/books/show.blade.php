@@ -67,27 +67,29 @@
 @stop
 
 @section('right')
-    <div class="mb-xl">
-        <h5>{{ trans('common.details') }}</h5>
-        <div class="blended-links">
-            @include('entities.meta', ['entity' => $book])
-            @if($book->restricted)
-                <div class="active-restriction">
-                    @if(userCan('restrictions-manage', $book))
-                        <a href="{{ $book->getUrl('/permissions') }}" class="entity-meta-item">
-                            @icon('lock')
-                            <div>{{ trans('entities.books_permissions_active') }}</div>
-                        </a>
-                    @else
-                        <div class="entity-meta-item">
-                            @icon('lock')
-                            <div>{{ trans('entities.books_permissions_active') }}</div>
-                        </div>
-                    @endif
-                </div>
-            @endif
+    @if(auth()->check() || !setting('app-hide-metadata'))
+        <div class="mb-xl">
+            <h5>{{ trans('common.details') }}</h5>
+            <div class="blended-links">
+                @include('entities.meta', ['entity' => $book])
+                @if($book->restricted)
+                    <div class="active-restriction">
+                        @if(userCan('restrictions-manage', $book))
+                            <a href="{{ $book->getUrl('/permissions') }}" class="entity-meta-item">
+                                @icon('lock')
+                                <div>{{ trans('entities.books_permissions_active') }}</div>
+                            </a>
+                        @else
+                            <div class="entity-meta-item">
+                                @icon('lock')
+                                <div>{{ trans('entities.books_permissions_active') }}</div>
+                            </div>
+                        @endif
+                    </div>
+                @endif
+            </div>
         </div>
-    </div>
+    @endif
 
     <div class="actions mb-xl">
         <h5>{{ trans('common.actions') }}</h5>
@@ -167,7 +169,7 @@
         </div>
     @endif
 
-    @if(count($activity) > 0)
+    @if(count($activity) > 0 && (auth()->check() || !setting('app-hide-metadata')))
         <div class="mb-xl">
             <h5>{{ trans('entities.recent_activity') }}</h5>
             @include('common.activity-list', ['activity' => $activity])

@@ -103,7 +103,7 @@
         </div>
     </div>
 
-    @if(count($activity) > 0)
+    @if(count($activity) > 0 && (auth()->check() || !setting('app-hide-metadata')))
         <div class="mb-xl">
             <h5>{{ trans('entities.recent_activity') }}</h5>
             @include('common.activity-list', ['activity' => $activity])

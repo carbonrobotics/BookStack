@@ -20,11 +20,23 @@
                     @endif
                 </div>
                 <div>
-                    @include('form.toggle-switch', [
-                        'name' => 'setting-app-public',
-                        'value' => setting('app-public'),
-                        'label' => trans('settings.app_public_access_toggle'),
-                    ])
+                    <div>
+                        @include('form.toggle-switch', [
+                            'name' => 'setting-app-public',
+                            'value' => setting('app-public'),
+                            'label' => trans('settings.app_public_access_toggle'),
+                        ])
+                    </div>
+
+                    @if(setting('app-public'))
+                        <div>
+                            @include('form.toggle-switch', [
+                                'name' => 'setting-app-hide-metadata',
+                                'value' => setting('app-hide-metadata'),
+                                'label' => trans('settings.app_public_metadata_toggle'),
+                            ])
+                        </div>
+                    @endif
                 </div>
             </div>
 
