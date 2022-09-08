@@ -28,7 +28,7 @@
 
 @if(($showUpdatedBy ?? false) && $entity->relationLoaded('updatedBy') && $entity->updatedBy)
     <small title="{{ $entity->updated_at->toDayDateTimeString() }}">
-        {!! trans(auth()->check() || !setting('app-hide-metadata') ? 'entities.meta_updated_name' : 'entities.meta_updated', [
+        {!! trans('entities.meta_updated_name', [
             'timeLength' => $entity->updated_at->diffForHumans(),
             'user' => e($entity->updatedBy->name)
         ]) !!}

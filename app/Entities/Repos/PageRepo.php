@@ -37,7 +37,8 @@ class PageRepo
         BaseRepo $baseRepo,
         RevisionRepo $revisionRepo,
         ReferenceStore $referenceStore,
-        ReferenceUpdater $referenceUpdater
+        ReferenceUpdater $referenceUpdater,
+        ImageRepo $imageRepo
     ) {
         $this->baseRepo = $baseRepo;
         $this->revisionRepo = $revisionRepo;
